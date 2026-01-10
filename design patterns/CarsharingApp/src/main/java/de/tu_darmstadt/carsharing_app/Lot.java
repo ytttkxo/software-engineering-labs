@@ -20,6 +20,23 @@ public abstract class Lot {
 
     public abstract List<Car> getAvailableCars();
 
+    // 1a) Abstrakte Subjektklasse implementieren
+    public void attach(Visualization observer) {
+        if (observer == null) return;
+        observers.addIfAbsent(observer);
+    }
+
+    public void detach(Visualization observer) {
+        if (observer == null) return;
+        observers.remove(observer);
+    }
+
+    protected void notifyObservers() {
+        for (Visualization observer : observers) {
+            if (observer != null) observer.update(this);
+        }
+    }
+
     public int getCapacity() {
         return capacity;
     }

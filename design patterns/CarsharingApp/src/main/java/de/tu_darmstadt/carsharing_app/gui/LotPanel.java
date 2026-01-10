@@ -24,6 +24,15 @@ public class LotPanel {
         list = new LotList(lots, onLotSelection);
         scrollList = new JScrollPane(list.getContent());
 
+        // 1c. LotList is permanent -> attach to all lots once
+        if (lots != null) {
+            for (Lot lot : lots) {
+                if (lot == null) continue;
+                lot.attach(list);
+                list.update(lot);
+            }
+        }
+
         content = new JPanel();
         content.setBorder(LineBorder.createBlackLineBorder());
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));

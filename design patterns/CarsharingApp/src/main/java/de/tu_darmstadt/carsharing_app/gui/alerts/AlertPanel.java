@@ -35,11 +35,26 @@ public class AlertPanel {
     }
 
     private void alertCreated(Alert alert) {
+        if (alert == null) return;
 
+        Lot lot = alert.getLot();
+        if (lot == null) return;
+
+        // Attach observer to subject
+        lot.attach(alert);
+
+        // Immediate notify so user gets info even if car is already available
+        alert.update(lot);
     }
 
     private void alertRemoved(Alert alert) {
+        if (alert == null) return;
 
+        Lot lot = alert.getLot();
+        if (lot == null) return;
+
+        // Detach observer from subject
+        lot.detach(alert);
     }
 
     public JPanel getContent() {

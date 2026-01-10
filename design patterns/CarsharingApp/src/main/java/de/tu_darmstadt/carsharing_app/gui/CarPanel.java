@@ -31,7 +31,21 @@ public class CarPanel {
     }
 
     public void showLot(Lot lot) {
+        if (lot == null) return;
+
+        // 1c. CarList is dynamic -> detach old one from its lot
+        if (list != null) {
+            Lot oldLot = list.getLot();
+            if (oldLot != null) {
+                oldLot.detach(list);
+            }
+        }
+
+        // create + attach new list
         list = new CarList(lot);
+        lot.attach(list);
+
+        list.update(lot);
 
         scrollList.setViewportView(list.getContent());
         header.setText("<html><b>Available Cars in Lot: " + lot.toString() + "</b></html>");

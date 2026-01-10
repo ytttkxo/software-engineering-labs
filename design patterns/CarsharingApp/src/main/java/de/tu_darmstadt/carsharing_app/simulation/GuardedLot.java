@@ -30,11 +30,13 @@ public class GuardedLot extends StubLot {
 
     public void updateTime(LocalTime time) {
         this.currentTime = time;
+        notifyObservers();
     }
 
     public void reserveCar(Car car) throws IllegalStateException {
         if (currentTime.isAfter(openTime) && currentTime.isBefore(closeTime)) {
             super.reserveCar(car);
+            notifyObservers();
         } else {
             throw new IllegalStateException("Lot is closed!");
         }
@@ -43,6 +45,7 @@ public class GuardedLot extends StubLot {
     public void returnCar(Car car) throws IllegalStateException {
         if (currentTime.isAfter(openTime) && currentTime.isBefore(closeTime)) {
             super.returnCar(car);
+            notifyObservers();
         } else {
             throw new IllegalStateException("Lot is closed!");
         }

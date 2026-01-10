@@ -23,6 +23,7 @@ public class StubLot extends Lot {
             throw new IllegalStateException("Car not available");
         }
         reservedCars.add(car);
+        notifyObservers();
     }
 
     public void returnCar(Car car) throws IllegalStateException {
@@ -30,6 +31,7 @@ public class StubLot extends Lot {
             throw new IllegalStateException("Car not currently reserved");
         }
         availableCars.add(car);
+        notifyObservers();
     }
 
     @Override
