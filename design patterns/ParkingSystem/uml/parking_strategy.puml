@@ -1,0 +1,28 @@
+@startuml
+class ParkingZone {
+  -regulations : ParkingRegulations
+  +setRegulations(r : ParkingRegulations) : void
+  +processDeparture(...) : void
+}
+
+interface ParkingRegulations {
+  +calculateFees(durationMinutes, vehicle, zoneID) : int
+}
+
+class SimpleTimeParkingRegulations {
+  +calculateFees(durationMinutes, vehicle, zoneID) : int
+}
+
+class ResidentialParkingRegulations {
+  +calculateFees(durationMinutes, vehicle, zoneID) : int
+}
+
+class HybridResidentialParkingRegulations {
+  +calculateFees(durationMinutes, vehicle, zoneID) : int
+}
+
+ParkingZone --> ParkingRegulations : regulations
+ParkingRegulations <|.. SimpleTimeParkingRegulations
+ParkingRegulations <|.. ResidentialParkingRegulations
+ParkingRegulations <|.. HybridResidentialParkingRegulations
+@enduml
